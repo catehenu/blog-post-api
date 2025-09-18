@@ -1,0 +1,11 @@
+# render.yaml
+services:
+  - type: web
+    name: fastapi-backend
+    env: python
+    buildCommand: "pip install pipenv && pipenv install --deploy --ignore-pipfile"
+    startCommand: "uvicorn app:app --reload"
+    envVars:
+      - key: DATABASE_URL
+        value: "sqlite:///backend/fastapi-practice.db"
+    plan: free
