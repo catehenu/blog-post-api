@@ -1,6 +1,7 @@
 from sqlalchemy.orm.session import Session
 from db.models import DbArticle  
 from schemas import ArticleBase
+from fastapi import HTTPException, status
 
 def create_article(db: Session, request: ArticleBase):
     new_article = DbArticle(
@@ -16,5 +17,6 @@ def create_article(db: Session, request: ArticleBase):
 
 def get_article(db: Session, id: int):
     article = db.query(DbArticle).filter(DbArticle.id == id).first() 
-    #Handle error
+    if not article:
+        raise HTTPException(status_code=404, detail=f"Article with the id {id} is not available")
     return article
