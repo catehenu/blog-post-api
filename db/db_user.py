@@ -18,15 +18,15 @@ def create_user(db: Session, request: UserBase):
 def get_all_users(db: Session):
     return db.query(DbUser).all()
 
-def get_user(db: Session, id: int):  # Corrected function name
-    user = db.query(DbUser).filter(DbUser.id == id).first()
+def get_user_by_username(db: Session, username: str):  # Corrected function name
+    user = db.query(DbUser).filter(DbUser.username == username).first()
      # Handle case where user is not found
 
     if not user:
-        raise HTTPException(status_code=404,detail=f"User with the id {id} is not available") 
+        raise HTTPException(status_code=404,
+                            detail=f"User with the username{username} is not available") 
     
-    return db.query(DbUser).filter(DbUser.id == id).first()
-
+    return user
 def update_user(db: Session, id: int, request: UserBase):
     user = db.query(DbUser).filter(DbUser.id == id)
     #handle any expectations
