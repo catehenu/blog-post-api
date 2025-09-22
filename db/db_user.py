@@ -37,7 +37,12 @@ def update_user(db: Session, id: int, request: UserBase):
 
 def delete_user(db: Session, id: int):
     user = db.query(DbUser).filter(DbUser.id == id).first()
-    #handle any expectations
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"User with id {id} not found"
+        )
+    
     db.delete(user)
     db.commit()
-    return 'deleted'
+    return None # Return None for 204 No Content

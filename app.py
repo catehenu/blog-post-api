@@ -10,7 +10,7 @@ from fastapi import Request
 from fastapi.responses import JSONResponse, PlainTextResponse
 from fastapi.exceptions import HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from auth import autrhentication
+from auth import authentication
 
 app = FastAPI()
 
@@ -23,7 +23,7 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
-app.include_router(autrhentication.router)  
+app.include_router(authentication.router)  
 app.include_router(user.router)
 app.include_router(article.router)
 app.include_router(blog_get.router)

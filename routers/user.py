@@ -1,4 +1,5 @@
 from schemas import UserDisplay, UserBase
+from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from db.database import get_db
@@ -31,6 +32,6 @@ def update_user(id: int, request: UserBase, db: Session = Depends(get_db)):
     return db_user.update_user(db, id, request) 
 
 #Delete a user
-@router.get('/{id}/delete')
-def delete(id: int, db: Session = Depends(get_db)):
+@router.delete('/{id}', status_code=status.HTTP_204_NO_CONTENT)
+def delete_user(id: int, db: Session = Depends(get_db)):
     return db_user.delete_user(db, id)
