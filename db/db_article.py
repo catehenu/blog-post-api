@@ -2,8 +2,11 @@ from sqlalchemy.orm.session import Session
 from db.models import DbArticle  
 from schemas import ArticleBase
 from fastapi import HTTPException, status
+from exceptions import StoryException  
 
 def create_article(db: Session, request: ArticleBase):
+    if request.content.startswith("Once upon a time"):
+        raise StoryException("No stories please")
     new_article = DbArticle(
         title=request.title,
         content=request.content,
