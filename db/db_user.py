@@ -19,6 +19,9 @@ def get_all_users(db: Session):
     return db.query(DbUser).all()
 
 def get_user(db: Session, id: int):  # Corrected function name
+    user = db.query(DbUser).filter(DbUser.id == id).first()
+     # Handle case where user is not found
+
     if not user:
         raise HTTPException(status_code=404,detail=f"User with the id {id} is not available") 
     
