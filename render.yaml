@@ -1,11 +1,13 @@
-# render.yaml
 services:
   - type: web
-    name: fastapi-backend
+    name: backend
     env: python
-    buildCommand: "pip install -r requirements.txt"
+    rootDir: .
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
     startCommand: "uvicorn app:app --host 0.0.0.0 --port $PORT"
     envVars:
       - key: DATABASE_URL
-        value: "sqlite:///backend/fastapi-practice.db"
+        value: "sqlite:///./fastapi-practice.db"
     plan: free
