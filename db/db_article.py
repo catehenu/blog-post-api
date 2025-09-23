@@ -4,7 +4,7 @@ from schemas import ArticleBase
 from fastapi import HTTPException, status
 from exceptions import StoryException  
 
-def create_article(db: Session, request: ArticleBase):
+def create_article(db: Session, id: int,request: ArticleBase):
     if request.content.startswith("Once upon a time"):
         raise StoryException("No stories please")
     new_article = DbArticle(
